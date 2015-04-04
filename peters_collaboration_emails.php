@@ -1,10 +1,10 @@
 <?php
 /*
-Plugin Name: Peter's Collaboration E-mails
+Plugin Name: Tekst Notificatie Updates
 Plugin URI: http://www.theblog.ca/wordpress-collaboration-emails
 Description: Enhance the "Submit for Review" feature for Contributor users. This plugin enables automatic e-mails to the relevant users when posts are pending, when they are approved, and when their statuses are changed from "pending" back to "draft".
-Author: Peter Keung
-Version: 1.9.3
+Author: Peter Keung, Dennis Neumann
+Version: 0.1.1
 Change Log:
 2013-10-07: 1.9.3: Minor button styling improvements. (Thanks daymobrew!) Also: support PHP 5 static function calls, bumping WordPress requirement to 3.2+.
 2013-03-29: 1.9.2: Bug fix: In some cases, custom taxonomies weren't showing up as an e-mail condition option. (Thanks boxcarpress and jswan2!)
