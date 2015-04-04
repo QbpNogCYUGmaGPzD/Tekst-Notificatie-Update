@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Peter's Collaboration E-mails v1.4\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-11-29 09:45-0800\n"
-"PO-Revision-Date: 2013-11-29 09:46-0800\n"
+"PO-Revision-Date: 2015-04-04 13:05+0100\n"
 "Last-Translator: Peter <peter@keung.biz>\n"
 "Language-Team: translation by WPwebshop.com <info@wpwebshop.com>\n"
 "Language: nl_NL\n"
@@ -13,13 +13,18 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e\n"
 "X-Poedit-Basepath: .\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 1.7.5\n"
 "X-Poedit-SearchPath-0: .\n"
 
 #: peters_collaboration_emails.php:183
 #, php-format
 msgid "There is a new post to review, written by %s."
-msgstr "Er is een nieuw bericht ter beoordeling, geschreven door %s."
+msgstr ""
+"Er is een nieuw bericht ter beoordeling, geschreven door %s. Je kunt de "
+"tekst nu redigeren. Denk eraan om het artikel weer op concept te zetten "
+"wanneer je klaar bent. De schrijver ontvangt daarvan een bericht. Dit is een "
+"geautomatiseerd bericht. Is er iets niet in orde? Neem dan contact op met "
+"webmaster@ongekunsteld.net"
 
 #: peters_collaboration_emails.php:186
 #, php-format
@@ -79,11 +84,25 @@ msgstr "goedgekeurd en gepland"
 #: peters_collaboration_emails.php:292
 #, php-format
 msgid "Your post has been reverted back to draft status by %s."
-msgstr "Je bericht is teruggezet naar concept-status door %s"
+msgstr ""
+"Je bericht is teruggezet naar concept-status door %s. De eindredacteur heeft "
+"waarschijnlijk nog wat suggesties. Je kunt je artikel nu bewerken. Vergeet "
+"niet om het, wanneer je daarmee klaar bent, om het artikel opnieuw in te "
+"zenden voor beoordeling! Je kunt je tekst tussentijds altijd opslaan als "
+"concept als je er later verder aan wilt werken. Wanneer je het artikel "
+"opnieuw inzendt voor beoordeling ontvangt je eindredacteur daarvan een "
+"bericht."
 
 #: peters_collaboration_emails.php:296
 msgid "Your post has been reverted back to draft status."
-msgstr "Je bericht is teruggezet naar concept-status"
+msgstr ""
+"Je bericht is teruggezet naar concept-status. De eindredacteur heeft "
+"waarschijnlijk nog wat suggesties. Je kunt je artikel nu bewerken. Vergeet "
+"niet om het, wanneer je daarmee klaar bent, om het artikel opnieuw in te "
+"zenden voor beoordeling! Je kunt je tekst tussentijds altijd opslaan als "
+"concept als je er later verder aan wilt werken. Wanneer je het artikel "
+"opnieuw inzendt voor beoordeling ontvangt je eindredacteur daarvan een "
+"bericht."
 
 #: peters_collaboration_emails.php:306 peters_collaboration_emails.php:354
 msgid "Edit it again here: "
@@ -386,18 +405,23 @@ msgid ""
 "The name of your blog, to appear in the title of e-mails. Leave blank to "
 "default to the site name within WordPress."
 msgstr ""
+"De naam van het blog, zoals die vertonot wordt in de naam van emails. Blanco "
+"voor standaard naam WordPress site."
 
 #: peters_collaboration_emails.php:1419
 msgid ""
 "E-mail address for the person sending all e-mails. If left blank, the sender "
 "is the user performing the action."
 msgstr ""
+"Het emailadres van de afzender. Blanco: de afzender is diegene die de actie "
+"uitvoert."
 
 #: peters_collaboration_emails.php:1427
 msgid ""
 "Name for the person sending all e-mails. If left blank, the name is of the "
 "user performing the action."
 msgstr ""
+"Afzender van alle emails. Blanco: afzender is diegene die de actie uitvoert."
 
 #: peters_collaboration_emails.php:1435
 msgid "Let the contributor know who approved his / her post"
@@ -460,6 +484,8 @@ msgid ""
 "Edited and commented on (using the Peter's Post Notes plugin) by someone who "
 "is not the author, without having changed the status"
 msgstr ""
+"Bewerkt door en gereageerd op (met Post-Note's) door iemand die niet de "
+"auteur is, zonder de status te veranderen."
 
 #: peters_collaboration_emails.php:1782
 msgid "Successfully updated plugin settings"
@@ -475,6 +501,8 @@ msgid ""
 "**** ERROR: That post type rule already exists. Please add or remove "
 "moderators to the existing rule. ****"
 msgstr ""
+"**** FOUT: Deze Post Type regel bestaat al. Voeg moderators toe aan de "
+"bestaande regel.****"
 
 #: peters_collaboration_emails.php:1939
 #, fuzzy
