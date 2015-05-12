@@ -93,7 +93,7 @@ function pce_pending($pce_newstatus, $pce_oldstatus, $pce_object) {
     $pce_emails_to_send = pceFunctionCollection::get_settings( 'emails_to_send' );
 	
 	// Define admin email address from Wordpress settings
-	$admin_address = get_option( 'admin_email' );
+	$admin_email = get_option( 'admin_email' );
 
     // The person who wrote the post
     $pce_thisuser = get_userdata($pce_object->post_author);
