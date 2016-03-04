@@ -374,7 +374,7 @@ function pce_pending($pce_newstatus, $pce_oldstatus, $pce_object) {
     // Thanks to Luis González-Jaime for this functionality
     if( in_array( 'pending_thanks', $pce_emails_to_send ) && 'pending' == $pce_newstatus && 'pending' != $pce_oldstatus )
     {
-        $pce_headers .= 'From:' . $pce_fromname . ' <' . $pce_fromaddress . '>'. $pce_eol;
+        $pce_headers .= 'From:' . $admin_address  . $pce_eol;
         $pce_headers .= 'Reply-To:' . $pce_fromname . ' <'. $pce_fromaddress . '>' . $pce_eol;
         $pce_headers .= 'Return-Path:' . $pce_fromname . ' <'. $pce_fromaddress . '>' . $pce_eol;
 
