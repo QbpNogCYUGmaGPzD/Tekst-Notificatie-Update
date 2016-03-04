@@ -97,7 +97,7 @@ function pce_pending($pce_newstatus, $pce_oldstatus, $pce_object) {
     $pce_emails_to_send = pceFunctionCollection::get_settings( 'emails_to_send' );
 	
 	// Define admin email address from Wordpress settings
-	$admin_email = get_option( 'admin_email' );
+	$admin_address = get_option( 'admin_email' );
 
     // The person who wrote the post
     $pce_thisuser = get_userdata($pce_object->post_author);
@@ -185,7 +185,7 @@ function pce_pending($pce_newstatus, $pce_oldstatus, $pce_object) {
 
         // Header stuff for a pending post
         // Header stuff from http://ca.php.net/mail
-        $pce_headers .= 'From:' . $admin_email  . $pce_eol;
+        $pce_headers .= 'From:' . $admin_address  . $pce_eol;
         $pce_headers .= 'Reply-To:' . $pce_fromname . ' <'. $pce_fromaddress . '>' . $pce_eol;
         $pce_headers .= 'Return-Path:' . $pce_fromname . ' <'. $pce_fromaddress . '>' . $pce_eol;
 
@@ -215,7 +215,7 @@ function pce_pending($pce_newstatus, $pce_oldstatus, $pce_object) {
 
         // Header stuff for an approved post
         // Header stuff from http://ca.php.net/mail
-        $pce_headers .= 'From:' . $admin_email  . $pce_eol;
+        $pce_headers .= 'From:' . $admin_address  . $pce_eol;
         $pce_headers .= 'Reply-To: ' . $pce_fromname . ' <' . $pce_fromaddress . '>' . $pce_eol;
         $pce_headers .= 'Return-Path: ' . $pce_fromname. ' <' . $pce_fromaddress .'>' . $pce_eol;
 
@@ -255,7 +255,7 @@ function pce_pending($pce_newstatus, $pce_oldstatus, $pce_object) {
 
         // Header stuff for an approved post
         // Header stuff from http://ca.php.net/mail
-        $pce_headers .= 'From:' . $admin_email  . $pce_eol;
+        $pce_headers .= 'From:' . $admin_address  . $pce_eol;
         $pce_headers .= 'Reply-To: ' . $pce_fromname . ' <' . $pce_fromaddress . '>' . $pce_eol;
         $pce_headers .= 'Return-Path: ' . $pce_fromname. ' <' . $pce_fromaddress .'>' . $pce_eol;
 
@@ -291,7 +291,7 @@ function pce_pending($pce_newstatus, $pce_oldstatus, $pce_object) {
 
         // Header stuff for a "back to draft" post
         // Header stuff from http://ca.php.net/mail
-        $pce_headers .= 'From:' . $admin_email  . $pce_eol;
+        $pce_headers .= 'From:' . $admin_address  . $pce_eol;
         $pce_headers .= 'Reply-To: ' . $pce_fromname . ' <' . $pce_fromaddress . '>' . $pce_eol;
         $pce_headers .= 'Return-Path: ' . $pce_fromname. ' <' . $pce_fromaddress .'>' . $pce_eol;
 
@@ -333,7 +333,7 @@ function pce_pending($pce_newstatus, $pce_oldstatus, $pce_object) {
 
         // Header stuff for a pending post
         // Header stuff from http://ca.php.net/mail
-        $pce_headers .= 'From:' . $admin_email  . $pce_eol;
+        $pce_headers .= 'From:' . $admin_address  . $pce_eol;
         $pce_headers .= 'Reply-To: ' . $pce_blogname . ' <'. $pce_fromaddress . '>' . $pce_eol;
         $pce_headers .= 'Return-Path: ' . $pce_blogname . ' <'. $pce_fromaddress . '>' . $pce_eol;
 
@@ -352,7 +352,7 @@ function pce_pending($pce_newstatus, $pce_oldstatus, $pce_object) {
     // E-mail author if the post status isn't changed, but someone else has added a note (using the Peter's Post Notes plugin)
     elseif( in_array( 'edited', $pce_emails_to_send ) && $pce_oldstatus == $pce_newstatus && isset( $_POST['ppn_post_note'] ) && '' != $_POST['ppn_post_note'] && $pce_thisuser->user_email != $user_email )
     {
-        $pce_headers .= 'From:' . $admin_email  . $pce_eol;
+        $pce_headers .= 'From:' . $admin_address  . $pce_eol;
         $pce_headers .= 'Reply-To: ' . $pce_blogname . ' <'. $pce_fromaddress . '>' . $pce_eol;
         $pce_headers .= 'Return-Path: ' . $pce_blogname . ' <'. $pce_fromaddress . '>' . $pce_eol;
 
