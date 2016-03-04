@@ -1,11 +1,15 @@
 <?php
 /*
 Plugin Name: Tekst Notificatie Updates
+
+
 Plugin URI: http://www.theblog.ca/wordpress-collaboration-emails
 Description: Enhance the "Submit for Review" feature for Contributor users. This plugin enables automatic e-mails to the relevant users when posts are pending, when they are approved, and when their statuses are changed from "pending" back to "draft".
 Author: Peter Keung, Dennis Neumann
-Version: 0.1.1
+Version: 2.1.0
 Change Log:
+2016-02-12: 2.1.0: Do not e-mail private notes -- when used with Peter's Post Notes 1.6.0 and up.
+2015-12-06: 2.0.0: Optional message to thank the author for their submission. Also: fixed the scheduled post timestamp. (Thanks Luis González Jaime!)
 2013-10-07: 1.9.3: Minor button styling improvements. (Thanks daymobrew!) Also: support PHP 5 static function calls, bumping WordPress requirement to 3.2+.
 2013-03-29: 1.9.2: Bug fix: In some cases, custom taxonomies weren't showing up as an e-mail condition option. (Thanks boxcarpress and jswan2!)
 2013-01-29  1.9.1: Fix bug from previous release that broke front-end post submissions.
@@ -64,7 +68,7 @@ $pce_db_collabrules = $wpdb->prefix . 'collabrules';
 // -------------------------------------------
 
 global $pce_version;
-$pce_version = '1.9.2';
+$pce_version = '2.1.0';
 
 // Enable translations
 add_action('init', 'pce_textdomain');
@@ -109,11 +113,14 @@ function pce_pending($pce_newstatus, $pce_oldstatus, $pce_object) {
     // Line break, which we will use many times in constructing e-mails
     $pce_eol = "\r\n";
     
-    // If a note was submitted, we will use it in the e-mails
-    if (isset($_POST['ppn_post_note']) && $_POST['ppn_post_note'] != '') {
+    // If a non-private note was submitted, we will use it in the e-mails
+    if( isset( $_POST['ppn_post_note'] ) && $_POST['ppn_post_note'] != '' && ( !isset( $_POST['ppn_private'] ) || !$_POST['ppn_private'] ) )
+	{
         $pce_post_note = stripslashes( $_POST['ppn_post_note'] );
     }
-    
+
+	
+	
     // Make sure the mail client knows it's a UTF-8 e-mail
     $pce_headers = 'Content-Type: text/plain; charset=utf-8' . $pce_eol;
 
@@ -256,11 +263,11 @@ function pce_pending($pce_newstatus, $pce_oldstatus, $pce_object) {
         $pce_body = sprintf(__('Hi %s!', 'peters_collaboration_emails'), $pce_thisuser->display_name) . $pce_eol . $pce_eol;
         if( $pce_whoapproved )
         {
-            $pce_body .= sprintf( __( 'Your post has been approved by %s and is scheduled to be published on %s UTC %s', 'peters_collaboration_emails' ), $pce_fromname, $pce_object->post_date, get_option( 'gmt_offset' ) );
+            $pce_body .= sprintf( __( 'Your post has been approved by %s and is scheduled to be published on %s at %s (UTC %s).', 'peters_collaboration_emails' ), $pce_fromname, get_the_date('d/m/Y', $pce_object), get_the_date('H:i', $pce_object), get_option( 'gmt_offset' ) );
         }
         else
         {
-            $pce_body .= __( 'Your post has been approved', 'peters_collaboration_emails' );
+            $pce_body .= sprintf( __( 'Your post has been approved and is scheduled to be published on %s at %s (UTC %s).', 'peters_collaboration_emails' ), get_the_date('d/m/Y', $pce_object), get_the_date('H:i', $pce_object), get_option( 'gmt_offset' ));
         }
         $pce_body .= $pce_eol . $pce_eol;
 
@@ -361,6 +368,22 @@ function pce_pending($pce_newstatus, $pce_oldstatus, $pce_object) {
 
         // Send the notification e-mail for a post that has been commented on by someone who is not the author and whose status hasn't changed
         wp_mail( $pce_thisuser->user_email, $pce_subject, $pce_body, $pce_headers );
+    }
+
+    // Send an e-mail to the post author to advise him/her about the submission (mainly, to thank them)
+    // Thanks to Luis González-Jaime for this functionality
+    if( in_array( 'pending_thanks', $pce_emails_to_send ) && 'pending' == $pce_newstatus && 'pending' != $pce_oldstatus )
+    {
+        $pce_headers .= 'From:' . $pce_fromname . ' <' . $pce_fromaddress . '>'. $pce_eol;
+        $pce_headers .= 'Reply-To:' . $pce_fromname . ' <'. $pce_fromaddress . '>' . $pce_eol;
+        $pce_headers .= 'Return-Path:' . $pce_fromname . ' <'. $pce_fromaddress . '>' . $pce_eol;
+
+        $pce_body = sprintf( __( 'Hi %s!', 'peters_collaboration_emails' ), $pce_thisuser->display_name ) . $pce_eol . $pce_eol;
+        $pce_body .= sprintf(__('Thanks for your submission. Your post "%s" will be reviewed soon.', 'peters_collaboration_emails'), $pce_object->post_title) . $pce_eol . $pce_eol;
+        
+        $pce_subject = '[' . $pce_blogname . '] "' . $pce_object->post_title . '" ' . __('has been submitted', 'peters_collaboration_emails');
+
+        wp_mail($user_email, $pce_subject, $pce_body, $pce_headers);
     }
 }
 
@@ -1712,6 +1735,7 @@ class pceFunctionCollection
         // This is the full list of options (do not change!)
         $pce_settings['emails_to_send_options'] = array();
         $pce_settings['emails_to_send_options']['pending'] = __( 'Set to pending for the first time', 'peters_collaboration_emails' );
+        $pce_settings['emails_to_send_options']['pending_thanks'] = __( 'Thank the author for their submission when a post is set to pending', 'peters_collaboration_emails' );
         $pce_settings['emails_to_send_options']['approved'] = __( 'Goes from pending to immediately published', 'peters_collaboration_emails' );
         $pce_settings['emails_to_send_options']['future'] = __( 'Goes from pending to approved at a set time in the future', 'peters_collaboration_emails' );
         $pce_settings['emails_to_send_options']['backtodraft'] = __( 'Goes back to draft status', 'peters_collaboration_emails' );
